@@ -20,7 +20,7 @@ offset_left = -51.0
 offset_right = 51.0
 offset_bottom = 23.0
 grow_horizontal = 2
-text = "MAC ARCADE"
+text = "MAC ARCADE (you need to remove mouse support in favor of start and select things)"
 
 [node name="VSplitContainer" type="VSplitContainer" parent="."]
 layout_mode = 1
