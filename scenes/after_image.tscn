@@ -1,0 +1,23 @@
+[gd_scene load_steps=5 format=3 uid="uid://dokg1efora1fd"]
+
+[ext_resource type="Shader" uid="uid://be1koiylqtrnm" path="res://shaders/after_image.gdshader" id="1_dclv7"]
+[ext_resource type="Texture2D" uid="uid://6oivm7vwhgsj" path="res://icon.svg" id="1_isvdl"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3gqxm"]
+shader = ExtResource("1_dclv7")
+shader_parameter/alpha = 0.5
+shader_parameter/tint = Color(0.6, 0.6, 0.6, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_isvdl"]
+size = Vector2(64, 64)
+
+[node name="AfterImage" type="StaticBody2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_3gqxm")
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("1_isvdl")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_isvdl")
+disabled = true
