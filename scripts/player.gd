@@ -4,6 +4,8 @@ extends CharacterBody2D
 @export var red_layer: TileMapLayer
 @export var blue_layer: TileMapLayer
 @export var yellow_layer: TileMapLayer
+@export var start_layer: TileMapLayer
+@export var end_layer: TileMapLayer
 @export var after_image_scene: PackedScene = preload("res://scenes/after_image.tscn")
 
 @export var attack_length: float = 0.2
