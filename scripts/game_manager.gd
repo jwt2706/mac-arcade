@@ -15,11 +15,11 @@ func _ready() -> void:
 	load_level(Globals.level)
 
 func load_level(level_num: int) -> void:
+	_load_level_resources(level_num)
 	_set_spawn_position()
 	_setup_end_triggers()
-	
-	
-	
+
+func _load_level_resources(level_num) -> void:
 	var path = "res://scenes/levels/level_%d.tscn" % level_num
 	var packed_scene: PackedScene = load(path)
 	if not packed_scene:
