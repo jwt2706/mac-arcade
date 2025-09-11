@@ -21,6 +21,13 @@ script = ExtResource("1_yqeox")
 
 [node name="Background" type="Node2D" parent="."]
 
+[node name="ColorRect" type="ColorRect" parent="Background"]
+offset_left = -31.0
+offset_top = -25.0
+offset_right = 1951.0
+offset_bottom = 1120.0
+color = Color(0, 0, 0, 1)
+
 [node name="GPUParticles2D" type="GPUParticles2D" parent="Background"]
 position = Vector2(964, 529)
 scale = Vector2(9.16, 5.08)
