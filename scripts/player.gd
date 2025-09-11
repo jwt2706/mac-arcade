@@ -19,8 +19,12 @@ extends CharacterBody2D
 var current_mode: String = "red"
 var attacking: bool = false
 
+var SIZE_OFFSET = 4
+
 func _ready() -> void:
 	set_mode("red")
+	_set_spawn_position()
+	_setup_end_triggers()
 
 func _physics_process(delta: float) -> void:
 	if Input.is_action_just_pressed("blue"):
@@ -46,9 +50,40 @@ func _physics_process(delta: float) -> void:
 				spawn_after_image()
 			"red":
 				attack_whip()
-
 	move_and_slide()
-	
+
+func _set_spawn_position() -> void:
+	if start_layer:
+		var cells = start_layer.get_used_cells()
+		if cells.size() > 0:
+			var spawn_pos = start_layer.map_to_local(cells[0])
+			global_position = spawn_pos * SIZE_OFFSET
+
+func _setup_end_triggers() -> void:
+	if end_layer:
+		for cell in end_layer.get_used_cells():
+			var pos = end_layer.map_to_local(cell) + Vector2(end_layer.tile_set.tile_size) / 2.0
+
+			# Make an Area2D trigger
+			var area := Area2D.new()
+			var shape := CollisionShape2D.new()
+			var rect := RectangleShape2D.new()
+			rect.size = Vector2(end_layer.tile_set.tile_size) * SIZE_OFFSET
+			shape.shape = rect
+			area.add_child(shape)
+			area.global_position = (pos * SIZE_OFFSET) - Vector2(32, 32)
+			area.name = "EndTrigger"
+
+			# Connect signal
+			area.body_entered.connect(_on_end_trigger_entered)
+
+			# Defer the add_child to avoid "busy setting up children" error
+			get_parent().call_deferred("add_child", area)
+
+func _on_end_trigger_entered(body: Node) -> void:
+	if body == self:
+		print("Level Complete!")
+
 func set_mode(color: String) -> void:
 	current_mode = color
 	match color:

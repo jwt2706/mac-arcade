@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://cayi040wkhbne" path="res://assets/Sprite-0001.png" id="2_yqjtg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yqjtg"]
-size = Vector2(64, 62)
+size = Vector2(60, 59)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lnu2h"]
 size = Vector2(97, 30)
@@ -42,7 +42,6 @@ grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="Player" type="CharacterBody2D" parent="." node_paths=PackedStringArray("whip_hitbox", "red_layer", "blue_layer", "yellow_layer", "start_layer", "end_layer")]
-position = Vector2(107, 166)
 script = ExtResource("1_lnu2h")
 whip_hitbox = NodePath("WhipArea")
 red_layer = NodePath("../MapLayers/RedLayer")
@@ -52,12 +51,11 @@ start_layer = NodePath("../MapLayers/StartLayer")
 end_layer = NodePath("../MapLayers/EndLayer")
 
 [node name="PlayerSprite" type="Sprite2D" parent="Player"]
-position = Vector2(-1, 1)
 scale = Vector2(0.5, 0.5)
 texture = ExtResource("1_uwrxv")
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="Player"]
-position = Vector2(-1, 0)
+position = Vector2(0, 0.5)
 shape = SubResource("RectangleShape2D_yqjtg")
 
 [node name="WhipArea" type="Area2D" parent="Player"]
