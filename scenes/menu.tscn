@@ -115,6 +115,12 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 32
 text = "just remember everything has to be done via joystick"
 
+[node name="FullscreenButton" type="Button" parent="SettingsPanel/SettingsOptions"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "ToggleFullscreen
+"
+
 [node name="ReturnButton" type="Button" parent="SettingsPanel/SettingsOptions"]
 layout_mode = 2
 size_flags_vertical = 4
@@ -125,4 +131,5 @@ text = "Quit"
 [connection signal="pressed" from="MenuOptions/StartRandomButton" to="." method="_on_start_random_button_pressed"]
 [connection signal="pressed" from="MenuOptions/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="MenuOptions/QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="SettingsPanel/SettingsOptions/FullscreenButton" to="." method="_on_fullscreen_button_pressed"]
 [connection signal="pressed" from="SettingsPanel/SettingsOptions/ReturnButton" to="." method="_on_return_button_pressed"]

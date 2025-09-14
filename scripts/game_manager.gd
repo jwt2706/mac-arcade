@@ -15,14 +15,14 @@ func _ready() -> void:
 	Globals.mode = "red"
 
 func load_level(level_num: int) -> void:
-	_load_level_resources(level_num)
+	var path = "res://scenes/levels/level_%d.tscn" % level_num
+	_load_level_resources(path)
 	_set_spawn_position()
 	_setup_end_triggers()
 
 ##### LEVEL SYSTEM FUNCTIONS
 
-func _load_level_resources(level_num) -> void:
-	var path = "res://scenes/levels/level_%d.tscn" % level_num
+func _load_level_resources(path) -> void:
 	var packed_scene: PackedScene = load(path)
 	if not packed_scene:
 		push_error("Could not load level: " + path)

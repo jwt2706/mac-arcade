@@ -51,13 +51,13 @@ func attack_whip() -> void:
 		return # prevent spam
 	
 	attacking = true
-	print("attacking")
+	#print("attacking")
 	whip_hitbox.monitoring = true
 	
 	await get_tree().create_timer(attack_length).timeout
 	whip_hitbox.monitoring = false
 	attacking = false
-	print("done attacking")
+	#print("done attacking")
 	
 	# ENEMIES EXAMPLE CODE OR SMTH:
 	#func _on_WhipHitbox_body_entered(body: Node) -> void:
