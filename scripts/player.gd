@@ -7,7 +7,6 @@ var after_image_scene: PackedScene = preload("res://scenes/after_image.tscn")
 @export var max_speed: float = 400.0
 @export var acceleration: float = 1000.0
 @export var friction: float = 800.0
-@export var jump_velocity: float = -400.0
 @export var gravity: float = 800.0
 
 var attacking: bool = false
@@ -40,7 +39,6 @@ func _physics_process(delta: float) -> void:
 
 func flip_gravity() -> void:
 	gravity = -gravity
-	jump_velocity = -jump_velocity
 
 func spawn_after_image() -> void:
 	if after_image_scene:

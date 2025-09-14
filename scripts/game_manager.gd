@@ -10,9 +10,10 @@ var end_layer
 var SIZE_OFFSET = 4
 
 func _ready() -> void:
+	load_level(Globals.level)
 	Globals.mode_changed.connect(_on_mode_changed)
 	Globals.mode = "red"
-	load_level(Globals.level)
+	
 
 func load_level(level_num: int) -> void:
 	_load_level_resources(level_num)
@@ -31,19 +32,18 @@ func _load_level_resources(level_num) -> void:
 	get_tree().root.add_child(current_level_instance)
 
 	# Get the MapLayers node
-	var map_layers = current_level_instance.get_node("MapLayers")
-	red_layer = map_layers.get_node("RedLayer")
-	blue_layer = map_layers.get_node("BlueLayer")
-	yellow_layer = map_layers.get_node("YellowLayer")
-	start_layer = map_layers.get_node("StartLayer")
-	end_layer = map_layers.get_node("EndLayer")
+	red_layer = current_level_instance.get_node("RedLayer")
+	blue_layer = current_level_instance.get_node("BlueLayer")
+	yellow_layer = current_level_instance.get_node("YellowLayer")
+	start_layer = current_level_instance.get_node("StartLayer")
+	end_layer = current_level_instance.get_node("EndLayer")
 
 	# Spawn the player at start tile
 	if start_layer.get_used_cells().size() > 0:
 		var first_cell = start_layer.get_used_cells()[0]
 		var spawn_pos = start_layer.map_to_local(first_cell) + Vector2(start_layer.tile_set.tile_size) / 2
 		var player_instance = player_scene.instantiate()
-		player_instance.global_position = spawn_pos
+		player_instance.global_position = spawn_pos * 4
 		get_tree().root.add_child(player_instance)
 
 func _on_mode_changed(new_mode):
