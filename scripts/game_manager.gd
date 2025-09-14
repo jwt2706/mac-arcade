@@ -13,12 +13,13 @@ func _ready() -> void:
 	load_level(Globals.level)
 	Globals.mode_changed.connect(_on_mode_changed)
 	Globals.mode = "red"
-	
 
 func load_level(level_num: int) -> void:
 	_load_level_resources(level_num)
 	_set_spawn_position()
 	_setup_end_triggers()
+
+##### LEVEL SYSTEM FUNCTIONS
 
 func _load_level_resources(level_num) -> void:
 	var path = "res://scenes/levels/level_%d.tscn" % level_num
@@ -27,39 +28,23 @@ func _load_level_resources(level_num) -> void:
 		push_error("Could not load level: " + path)
 		return
 
-	# Instantiate the level
+	# init level
 	current_level_instance = packed_scene.instantiate()
+	current_level_instance.scale = Vector2(SIZE_OFFSET, SIZE_OFFSET)
 	get_tree().root.add_child(current_level_instance)
-
-	# Get the MapLayers node
 	red_layer = current_level_instance.get_node("RedLayer")
 	blue_layer = current_level_instance.get_node("BlueLayer")
 	yellow_layer = current_level_instance.get_node("YellowLayer")
 	start_layer = current_level_instance.get_node("StartLayer")
 	end_layer = current_level_instance.get_node("EndLayer")
 
-	# Spawn the player at start tile
+	# spawn the player at start tile
 	if start_layer.get_used_cells().size() > 0:
 		var first_cell = start_layer.get_used_cells()[0]
-		var spawn_pos = start_layer.map_to_local(first_cell) + Vector2(start_layer.tile_set.tile_size) / 2
+		var spawn_pos = start_layer.map_to_local(first_cell)
 		var player_instance = player_scene.instantiate()
-		player_instance.global_position = spawn_pos * 4
+		player_instance.global_position = spawn_pos * SIZE_OFFSET
 		get_tree().root.add_child(player_instance)
-
-func _on_mode_changed(new_mode):
-	match new_mode:
-		"red":
-			red_layer.visible = true
-			blue_layer.visible = false
-			yellow_layer.visible = false
-		"blue":
-			red_layer.visible = false
-			blue_layer.visible = true
-			yellow_layer.visible = false
-		"yellow":
-			red_layer.visible = false
-			blue_layer.visible = false
-			yellow_layer.visible = true
 
 func _set_spawn_position() -> void:
 	if start_layer:
@@ -85,6 +70,23 @@ func _setup_end_triggers() -> void:
 
 			area.body_entered.connect(_on_end_trigger_entered)
 			get_parent().call_deferred("add_child", area)
+
+#### EVENT FUNCTIONS
+
+func _on_mode_changed(new_mode):
+	match new_mode:
+		"red":
+			red_layer.visible = true
+			blue_layer.visible = false
+			yellow_layer.visible = false
+		"blue":
+			red_layer.visible = false
+			blue_layer.visible = true
+			yellow_layer.visible = false
+		"yellow":
+			red_layer.visible = false
+			blue_layer.visible = false
+			yellow_layer.visible = true
 
 func _on_end_trigger_entered(body: Node) -> void:
 	if body == self:

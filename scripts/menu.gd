@@ -34,6 +34,7 @@ func _on_start_random_button_pressed() -> void:
 func _on_settings_button_pressed() -> void:
 	settings_panel.visible = true
 	buttons = settings_options.get_children()
+	current_index = 0
 	_update_focus()
 
 func _on_quit_button_pressed() -> void:
@@ -42,4 +43,5 @@ func _on_quit_button_pressed() -> void:
 func _on_return_button_pressed() -> void:
 	settings_panel.visible = false
 	buttons = menu_options.get_children()
+	current_index = 0
 	_update_focus()
