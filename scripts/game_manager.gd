@@ -89,6 +89,6 @@ func _on_mode_changed(new_mode):
 			yellow_layer.visible = true
 
 func _on_end_trigger_entered(body: Node) -> void:
-	if body == self:
+	if body.name == "Player":
 		print("Level Complete!")
 		# load next level
