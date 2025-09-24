@@ -1,0 +1,88 @@
+[gd_scene load_steps=3 format=3 uid="uid://bsc6c5skdcx6i"]
+
+[ext_resource type="Script" uid="uid://dxhjt2dlj7jfc" path="res://scripts/level_end.gd" id="1_m04g6"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yqeox"]
+particle_flag_disable_z = true
+spread = 180.0
+initial_velocity_min = 10.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+turbulence_noise_strength = 0.0
+
+[node name="LevelEnd" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_m04g6")
+
+[node name="Background" type="Node2D" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="Background"]
+offset_left = -31.0
+offset_top = -25.0
+offset_right = 1951.0
+offset_bottom = 1120.0
+color = Color(0, 0, 0, 1)
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="Background"]
+position = Vector2(964, 529)
+scale = Vector2(9.16, 5.08)
+amount = 100
+amount_ratio = 0.4486
+lifetime = 4.0
+trail_enabled = true
+trail_lifetime = 0.03
+process_material = SubResource("ParticleProcessMaterial_yqeox")
+
+[node name="Title" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -180.5
+offset_top = 150.0
+offset_right = 180.5
+offset_bottom = 227.0
+grow_horizontal = 2
+theme_override_font_sizes/font_size = 64
+text = "Level Complete!"
+
+[node name="MenuOptions" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -73.5
+offset_top = -74.5
+offset_right = 73.5
+offset_bottom = 74.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="NextButton" type="Button" parent="MenuOptions"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Next Level"
+
+[node name="ReplayButton" type="Button" parent="MenuOptions"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Restart"
+
+[node name="MenuButton" type="Button" parent="MenuOptions"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Main Menu"
+
+[connection signal="pressed" from="MenuOptions/NextButton" to="." method="_on_next_button_pressed"]
+[connection signal="pressed" from="MenuOptions/ReplayButton" to="." method="_on_replay_button_pressed"]
+[connection signal="pressed" from="MenuOptions/MenuButton" to="." method="_on_menu_button_pressed"]

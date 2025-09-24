@@ -90,5 +90,4 @@ func _on_mode_changed(new_mode):
 
 func _on_end_trigger_entered(body: Node) -> void:
 	if body.name == "Player":
-		print("Level Complete!")
-		# load next level
+		get_tree().change_scene_to_file("res://scenes/levels/level_end.tscn")
