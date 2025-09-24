@@ -27,6 +27,5 @@ func _ready():
 		grid.add_child(button)
 
 func _on_level_button_pressed(level_num: int) -> void:
-	print("Loading Level", level_num)
 	Globals.current_level = level_num
 	get_tree().change_scene_to_file("res://scenes/game.tscn")
