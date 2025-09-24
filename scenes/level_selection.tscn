@@ -1,6 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bsc6c5skdcx6i"]
+[gd_scene load_steps=3 format=3 uid="uid://51x3a680o8c4"]
 
-[ext_resource type="Script" uid="uid://dxhjt2dlj7jfc" path="res://scripts/level_end.gd" id="1_m04g6"]
+[ext_resource type="Script" uid="uid://blcmx7csxtm6p" path="res://scripts/level_selection.gd" id="1_u1g2d"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yqeox"]
 particle_flag_disable_z = true
@@ -10,14 +10,14 @@ initial_velocity_max = 50.0
 gravity = Vector3(0, 0, 0)
 turbulence_noise_strength = 0.0
 
-[node name="LevelEnd" type="Control"]
+[node name="LevelSelection" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_m04g6")
+script = ExtResource("1_u1g2d")
 
 [node name="Background" type="Node2D" parent="."]
 
@@ -49,40 +49,19 @@ offset_right = 180.5
 offset_bottom = 227.0
 grow_horizontal = 2
 theme_override_font_sizes/font_size = 64
-text = "Level Complete!"
+text = "Level Selection"
 
-[node name="MenuOptions" type="VBoxContainer" parent="."]
+[node name="LevelsContainer" type="GridContainer" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -73.5
-offset_top = -74.5
-offset_right = 73.5
-offset_bottom = 74.5
+offset_left = -20.0
+offset_top = -20.0
+offset_right = 20.0
+offset_bottom = 20.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="NextButton" type="Button" parent="MenuOptions"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 32
-text = "Next Level"
-
-[node name="ReplayButton" type="Button" parent="MenuOptions"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 32
-text = "Restart"
-
-[node name="MenuButton" type="Button" parent="MenuOptions"]
-layout_mode = 2
-size_flags_vertical = 4
-theme_override_font_sizes/font_size = 32
-text = "Main Menu"
-
-[connection signal="pressed" from="MenuOptions/NextButton" to="." method="_on_next_button_pressed"]
-[connection signal="pressed" from="MenuOptions/ReplayButton" to="." method="_on_replay_button_pressed"]
-[connection signal="pressed" from="MenuOptions/MenuButton" to="." method="_on_menu_button_pressed"]
+columns = 4

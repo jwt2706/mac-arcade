@@ -10,7 +10,7 @@ var end_layer
 var SIZE_OFFSET = 4
 
 func _ready() -> void:
-	load_level(Globals.level)
+	load_level(Globals.current_level)
 	Globals.mode_changed.connect(_on_mode_changed)
 	Globals.mode = "red"
 
@@ -90,4 +90,4 @@ func _on_mode_changed(new_mode):
 
 func _on_end_trigger_entered(body: Node) -> void:
 	if body.name == "Player":
-		get_tree().change_scene_to_file("res://scenes/levels/level_end.tscn")
+		get_tree().change_scene_to_file("res://scenes/level_end.tscn")

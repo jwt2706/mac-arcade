@@ -71,6 +71,12 @@ size_flags_vertical = 4
 theme_override_font_sizes/font_size = 32
 text = "Start"
 
+[node name="SelectionButton" type="Button" parent="MenuOptions"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Level Selection"
+
 [node name="StartRandomButton" type="Button" parent="MenuOptions"]
 layout_mode = 2
 size_flags_vertical = 4
@@ -128,6 +134,7 @@ theme_override_font_sizes/font_size = 32
 text = "Quit"
 
 [connection signal="pressed" from="MenuOptions/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="pressed" from="MenuOptions/SelectionButton" to="." method="_on_selection_button_pressed"]
 [connection signal="pressed" from="MenuOptions/StartRandomButton" to="." method="_on_start_random_button_pressed"]
 [connection signal="pressed" from="MenuOptions/SettingsButton" to="." method="_on_settings_button_pressed"]
 [connection signal="pressed" from="MenuOptions/QuitButton" to="." method="_on_quit_button_pressed"]
