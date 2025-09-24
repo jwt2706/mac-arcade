@@ -18,3 +18,43 @@ offset_bottom = -257.0
 grow_vertical = 0
 scale = Vector2(1.16105, 1.36808)
 color = Color(0, 0, 0, 1)
+
+[node name="PauseContainer" type="PanelContainer" parent="."]
+process_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 804.0
+offset_top = -598.0
+offset_right = 1043.0
+offset_bottom = -449.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PausesOptions" type="VBoxContainer" parent="PauseContainer"]
+layout_mode = 2
+
+[node name="ResumeButton" type="Button" parent="PauseContainer/PausesOptions"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Resume
+"
+
+[node name="SelectionButton" type="Button" parent="PauseContainer/PausesOptions"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Level Selection"
+
+[node name="MenuButton" type="Button" parent="PauseContainer/PausesOptions"]
+layout_mode = 2
+size_flags_vertical = 4
+theme_override_font_sizes/font_size = 32
+text = "Main Menu"
+
+[connection signal="pressed" from="PauseContainer/PausesOptions/ResumeButton" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="PauseContainer/PausesOptions/SelectionButton" to="." method="_on_selection_button_pressed"]
+[connection signal="pressed" from="PauseContainer/PausesOptions/MenuButton" to="." method="_on_menu_button_pressed"]

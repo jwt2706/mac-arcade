@@ -9,10 +9,21 @@ var start_layer
 var end_layer
 var SIZE_OFFSET = 4
 
+@onready var pause_container = $PauseContainer
+
 func _ready() -> void:
 	load_level(Globals.current_level)
 	Globals.mode_changed.connect(_on_mode_changed)
 	Globals.mode = "red"
+	pause_container.visible = false
+
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("select"):
+		toggle_pause()
+
+func toggle_pause() -> void:
+	get_tree().paused = not get_tree().paused
+	pause_container.visible = get_tree().paused
 
 func load_level(level_num: int) -> void:
 	var path = "res://scenes/levels/level_%d.tscn" % level_num
@@ -91,3 +102,14 @@ func _on_mode_changed(new_mode):
 func _on_end_trigger_entered(body: Node) -> void:
 	if body.name == "Player":
 		get_tree().change_scene_to_file("res://scenes/level_end.tscn")
+
+func _on_resume_button_pressed() -> void:
+	toggle_pause()
+
+func _on_selection_button_pressed() -> void:
+	toggle_pause()
+	get_tree().change_scene_to_file("res://scenes/level_selection.tscn")
+
+func _on_menu_button_pressed() -> void:
+	toggle_pause()
+	get_tree().change_scene_to_file("res://scenes/menu.tscn")
