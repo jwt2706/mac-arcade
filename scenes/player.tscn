@@ -1,7 +1,55 @@
-[gd_scene load_steps=5 format=3 uid="uid://c6wqjdfirsvpu"]
+[gd_scene load_steps=11 format=3 uid="uid://c6wqjdfirsvpu"]
 
 [ext_resource type="Script" uid="uid://c8jfkgaqmrovj" path="res://scripts/player.gd" id="1_g2els"]
-[ext_resource type="Texture2D" uid="uid://6oivm7vwhgsj" path="res://icon.svg" id="2_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://ddp54xjfwsx8p" path="res://assets/mac-red-running.png" id="3_qhqgy"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g2els"]
+atlas = ExtResource("3_qhqgy")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dqkch"]
+atlas = ExtResource("3_qhqgy")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qlg0r"]
+atlas = ExtResource("3_qhqgy")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tuyoq"]
+atlas = ExtResource("3_qhqgy")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
+atlas = ExtResource("3_qhqgy")
+region = Rect2(960, 0, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_smehm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g2els")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dqkch")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qlg0r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tuyoq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjrip")
+}],
+"loop": true,
+"name": &"run",
+"speed": 8.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_yqjtg"]
 size = Vector2(60, 59)
@@ -9,13 +57,15 @@ size = Vector2(60, 59)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lnu2h"]
 size = Vector2(97, 30)
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("whip_hitbox")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("whip_hitbox", "animated_sprite")]
 script = ExtResource("1_g2els")
 whip_hitbox = NodePath("WhipArea")
+animated_sprite = NodePath("PlayerSprite")
 
-[node name="PlayerSprite" type="Sprite2D" parent="."]
-scale = Vector2(0.5, 0.5)
-texture = ExtResource("2_qhqgy")
+[node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.2, 0.2)
+sprite_frames = SubResource("SpriteFrames_smehm")
+animation = &"idle"
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yqjtg")
