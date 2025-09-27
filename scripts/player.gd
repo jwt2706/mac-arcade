@@ -13,6 +13,7 @@ var after_image_scene: PackedScene = preload("res://scenes/after_image.tscn")
 var attacking: bool = false
 
 func _physics_process(delta: float) -> void:
+	# MODE SWITCHING
 	if Input.is_action_just_pressed("red"):
 		Globals.mode = "red"
 	if Input.is_action_just_pressed("blue"):
@@ -23,26 +24,30 @@ func _physics_process(delta: float) -> void:
 	velocity.y += gravity * delta
 	var direction := Input.get_axis("left", "right")
 
-	# Movement + flip hitbox and sprite
+	# MOVEMENT + FLIPPING
 	if direction != 0:
 		velocity.x = move_toward(velocity.x, direction * max_speed, acceleration * delta)
 
-		# Flip left/right
 		var facing_right = direction > 0
 		whip_hitbox.scale.x = 1 if facing_right else -1
 		animated_sprite.flip_h = not facing_right
 	else:
 		velocity.x = move_toward(velocity.x, 0, friction * delta)
 
-	# Handle animations
+	# ANIMATIONS
+	var prefix := Globals.mode  # "red", "blue", or "yellow"
 	if direction != 0:
-		if not animated_sprite.is_playing() or animated_sprite.animation != "run":
-			animated_sprite.play("run")
+		var run_anim := prefix + "_run"
+		if animated_sprite.animation != run_anim or not animated_sprite.is_playing():
+			if animated_sprite.sprite_frames.has_animation(run_anim):
+				animated_sprite.play(run_anim)
 	else:
-		if not animated_sprite.is_playing() or animated_sprite.animation != "idle":
-			animated_sprite.play("idle")
+		var idle_anim := prefix + "_idle"
+		if animated_sprite.animation != idle_anim or not animated_sprite.is_playing():
+			if animated_sprite.sprite_frames.has_animation(idle_anim):
+				animated_sprite.play(idle_anim)
 
-	# Power abilities
+	# POWER ABILITIES
 	if Input.is_action_just_pressed("power"):
 		match Globals.mode:
 			"red":
@@ -56,7 +61,6 @@ func _physics_process(delta: float) -> void:
 
 func flip_gravity() -> void:
 	gravity = -gravity
-	# Flip sprite vertically when gravity changes
 	animated_sprite.flip_v = gravity < 0
 
 func spawn_after_image() -> void:
@@ -67,7 +71,7 @@ func spawn_after_image() -> void:
 
 func attack_whip() -> void:
 	if attacking:
-		return # prevent spam
+		return
 	
 	attacking = true
 	whip_hitbox.monitoring = true
