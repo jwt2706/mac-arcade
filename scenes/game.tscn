@@ -11,13 +11,15 @@ player_scene = ExtResource("2_yqjtg")
 anchors_preset = 2
 anchor_top = 1.0
 anchor_bottom = 1.0
-offset_left = -186.0
-offset_top = -1457.0
-offset_right = 1814.0
-offset_bottom = -257.0
+offset_left = -227.0
+offset_top = -236.0
+offset_right = 1773.0
+offset_bottom = 964.0
 grow_vertical = 0
 scale = Vector2(1.16105, 1.36808)
 color = Color(0, 0, 0, 1)
+
+[node name="LevelContainer" type="Node2D" parent="."]
 
 [node name="PauseContainer" type="PanelContainer" parent="."]
 process_mode = 3
@@ -26,10 +28,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 804.0
-offset_top = -598.0
-offset_right = 1043.0
-offset_bottom = -449.0
+offset_left = 787.0
+offset_top = 464.0
+offset_right = 1026.0
+offset_bottom = 613.0
 grow_horizontal = 2
 grow_vertical = 2
 
