@@ -34,6 +34,7 @@ func load_level(level_num: int) -> void:
 ##### LEVEL SYSTEM FUNCTIONS
 
 func _load_level_resources(path) -> void:
+	print(path)
 	var packed_scene: PackedScene = load(path)
 	if not packed_scene:
 		push_error("Could not load level: " + path)

@@ -7,7 +7,7 @@ var after_image_scene: PackedScene = preload("res://scenes/after_image.tscn")
 @export var attack_length: float = 0.2
 @export var max_speed: float = 400.0
 @export var acceleration: float = 1000.0
-@export var friction: float = 800.0
+@export var friction: float = 1200.0
 @export var gravity: float = 800.0
 
 var attacking: bool = false
