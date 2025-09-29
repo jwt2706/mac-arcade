@@ -7,6 +7,7 @@ var blue_layer
 var yellow_layer
 var start_layer
 var end_layer
+var spike_layer
 var SIZE_OFFSET = 4
 
 @onready var pause_container = $PauseContainer
@@ -30,6 +31,7 @@ func load_level(level_num: int) -> void:
 	_load_level_resources(path)
 	_set_spawn_position()
 	_setup_end_triggers()
+	_setup_spike_triggers()
 
 ##### LEVEL SYSTEM FUNCTIONS
 
@@ -49,6 +51,7 @@ func _load_level_resources(path) -> void:
 	yellow_layer = current_level_instance.get_node("YellowLayer")
 	start_layer = current_level_instance.get_node("StartLayer")
 	end_layer = current_level_instance.get_node("EndLayer")
+	spike_layer = current_level_instance.get_node("SpikeLayer")
 
 	# spawn the player at start tile
 	if start_layer.get_used_cells().size() > 0:
@@ -83,6 +86,23 @@ func _setup_end_triggers() -> void:
 			area.body_entered.connect(_on_end_trigger_entered)
 			get_parent().call_deferred("add_child", area)
 
+func _setup_spike_triggers() -> void:
+	if spike_layer:
+		for cell in spike_layer.get_used_cells():
+			var pos = spike_layer.map_to_local(cell) + Vector2(spike_layer.tile_set.tile_size) / 2.0
+
+			var area := Area2D.new()
+			var shape := CollisionShape2D.new()
+			var rect := RectangleShape2D.new()
+			rect.size = Vector2(spike_layer.tile_set.tile_size) * SIZE_OFFSET
+			shape.shape = rect
+			area.add_child(shape)
+			area.global_position = (pos * SIZE_OFFSET) - Vector2(32, 32)
+			area.name = "SpikeTrigger"
+
+			area.body_entered.connect(_on_spike_trigger_entered)
+			get_parent().call_deferred("add_child", area)
+
 #### EVENT FUNCTIONS
 
 func _on_mode_changed(new_mode):
@@ -103,6 +123,11 @@ func _on_mode_changed(new_mode):
 func _on_end_trigger_entered(body: Node) -> void:
 	if body.name == "Player":
 		get_tree().change_scene_to_file("res://scenes/level_end.tscn")
+
+func _on_spike_trigger_entered(body: Node) -> void:
+	if body.name == "Player":
+		# Restart the current level or go to a "game over" screen
+		get_tree().reload_current_scene()
 
 func _on_resume_button_pressed() -> void:
 	toggle_pause()
