@@ -94,12 +94,17 @@ func _spawn_player() -> void:
 		var spawn_pos = start_layer.map_to_local(first_cell) * SIZE_OFFSET
 		var player_instance = player_scene.instantiate()
 		player_instance.global_position = spawn_pos
-		player_instance.can_move = false  # Disable movement during preview
-		level_container.add_child(player_instance)
 
-		# Allow movement after preview
-		await get_tree().create_timer(START_DELAY).timeout
-		player_instance.can_move = true
+		# Disable movement during preview using deferred call
+		call_deferred("_defer_setup_player", player_instance)
+
+func _defer_setup_player(player_instance):
+	player_instance.can_move = false
+	level_container.add_child(player_instance)
+
+	# Enable movement after 1 second preview
+	await get_tree().create_timer(START_DELAY).timeout
+	player_instance.can_move = true
 
 # -------------------------
 # TRIGGERS
