@@ -73,6 +73,12 @@ func load_level(level_num: int) -> void:
 	_setup_end_triggers()
 	_setup_spike_triggers()
 
+	# --- START PREVIEW LOGIC ---
+	can_play = false
+	await get_tree().create_timer(START_DELAY).timeout
+	Globals.mode = "red"
+	can_play = true
+
 func reload_level() -> void:
 	load_level(Globals.current_level)
 
@@ -81,7 +87,7 @@ func _clear_current_level() -> void:
 		current_level_instance.queue_free()
 		current_level_instance = null
 
-	# Clear any leftover nodes in level container
+	# Clear leftover nodes
 	for child in level_container.get_children():
 		child.queue_free()
 
@@ -94,15 +100,13 @@ func _spawn_player() -> void:
 		var spawn_pos = start_layer.map_to_local(first_cell) * SIZE_OFFSET
 		var player_instance = player_scene.instantiate()
 		player_instance.global_position = spawn_pos
+		player_instance.can_move = false
+		level_container.add_child(player_instance)
 
-		# Disable movement during preview using deferred call
-		call_deferred("_defer_setup_player", player_instance)
+		# Enable movement after preview
+		_defer_enable_player(player_instance)
 
-func _defer_setup_player(player_instance):
-	player_instance.can_move = false
-	level_container.add_child(player_instance)
-
-	# Enable movement after 1 second preview
+func _defer_enable_player(player_instance: Node) -> void:
 	await get_tree().create_timer(START_DELAY).timeout
 	player_instance.can_move = true
 
@@ -123,8 +127,9 @@ func _setup_end_triggers() -> void:
 		area.add_child(shape)
 		area.global_position = (pos * SIZE_OFFSET) - Vector2(32, 32)
 		area.name = "EndTrigger"
-		area.body_entered.connect(_on_end_trigger_entered)
-		level_container.call_deferred("add_child", area)
+
+		level_container.add_child(area)  # Add first
+		area.body_entered.connect(_on_end_trigger_entered)  # Connect after
 
 func _setup_spike_triggers() -> void:
 	if not spike_layer:
@@ -140,15 +145,16 @@ func _setup_spike_triggers() -> void:
 		area.add_child(shape)
 		area.global_position = (pos * SIZE_OFFSET) - Vector2(32, 32)
 		area.name = "SpikeTrigger"
-		area.body_entered.connect(_on_spike_trigger_entered)
-		level_container.call_deferred("add_child", area)
+
+		level_container.add_child(area)  # Add first
+		area.body_entered.connect(_on_spike_trigger_entered)  # Connect after
 
 # -------------------------
 # MODE SWITCHING
 # -------------------------
 func _on_mode_changed(new_mode: String) -> void:
 	if not red_layer or not blue_layer or not yellow_layer:
-		return # layers not ready yet
+		return
 
 	match new_mode:
 		"red":
@@ -171,19 +177,27 @@ func _on_end_trigger_entered(body: Node) -> void:
 	if not can_play:
 		return
 	if body.name == "Player":
-		get_tree().change_scene_to_file("res://scenes/level_end.tscn")
+		call_deferred("_go_to_level_end")
 
 func _on_spike_trigger_entered(body: Node) -> void:
 	if not can_play:
 		return
 	if body.name == "Player":
-		reload_level()
+		call_deferred("reload_level")
+
+func _go_to_level_end() -> void:
+	get_tree().change_scene_to_file("res://scenes/level_end.tscn")
 
 # -------------------------
 # UI BUTTONS
 # -------------------------
 func _on_resume_button_pressed() -> void:
 	toggle_pause()
+
+func _on_restart_button_pressed() -> void:
+	pause_container.visible = false
+	get_tree().paused = false
+	call_deferred("reload_level")
 
 func _on_selection_button_pressed() -> void:
 	toggle_pause()
