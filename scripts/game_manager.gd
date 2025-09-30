@@ -2,6 +2,7 @@ extends Node2D
 
 @export var player_scene: PackedScene
 @export var SIZE_OFFSET := 4
+@export var START_DELAY: float = 1.0
 
 var current_level_instance: Node
 var red_layer
@@ -11,6 +12,8 @@ var start_layer
 var end_layer
 var spike_layer
 
+var can_play: bool = false
+
 @onready var pause_container = $PauseContainer
 @onready var level_container = $LevelContainer
 
@@ -19,10 +22,15 @@ var spike_layer
 # -------------------------
 func _ready() -> void:
 	Globals.mode_changed.connect(_on_mode_changed)
-	Globals.mode = "red"
 	pause_container.visible = false
 
 	load_level(Globals.current_level)
+	
+	# Show full map for 1 second, then switch to red layer
+	can_play = false
+	await get_tree().create_timer(1.0).timeout
+	Globals.mode = "red"
+	can_play = true
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("select"):
@@ -60,6 +68,7 @@ func load_level(level_num: int) -> void:
 	end_layer = current_level_instance.get_node("EndLayer")
 	spike_layer = current_level_instance.get_node("SpikeLayer")
 
+	# Spawn player
 	_spawn_player()
 	_setup_end_triggers()
 	_setup_spike_triggers()
@@ -85,7 +94,12 @@ func _spawn_player() -> void:
 		var spawn_pos = start_layer.map_to_local(first_cell) * SIZE_OFFSET
 		var player_instance = player_scene.instantiate()
 		player_instance.global_position = spawn_pos
+		player_instance.can_move = false  # Disable movement during preview
 		level_container.add_child(player_instance)
+
+		# Allow movement after preview
+		await get_tree().create_timer(START_DELAY).timeout
+		player_instance.can_move = true
 
 # -------------------------
 # TRIGGERS
@@ -145,15 +159,18 @@ func _on_mode_changed(new_mode: String) -> void:
 			blue_layer.visible = false
 			yellow_layer.visible = true
 
-
 # -------------------------
 # TRIGGER CALLBACKS
 # -------------------------
 func _on_end_trigger_entered(body: Node) -> void:
+	if not can_play:
+		return
 	if body.name == "Player":
 		get_tree().change_scene_to_file("res://scenes/level_end.tscn")
 
 func _on_spike_trigger_entered(body: Node) -> void:
+	if not can_play:
+		return
 	if body.name == "Player":
 		reload_level()
 

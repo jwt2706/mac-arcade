@@ -11,8 +11,12 @@ var after_image_scene: PackedScene = preload("res://scenes/after_image.tscn")
 @export var gravity: float = 800.0
 
 var attacking: bool = false
+var can_move: bool = true
 
 func _physics_process(delta: float) -> void:
+	if not can_move:
+		return
+	
 	# MODE SWITCHING
 	if Input.is_action_just_pressed("red"):
 		Globals.mode = "red"
