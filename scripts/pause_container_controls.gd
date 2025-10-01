@@ -9,7 +9,6 @@ var buttons: Array
 
 func _ready() -> void:
 	buttons = [resume_button, restart_button, selection_button, menu_button]
-	resume_button.grab_focus()
 
 func _process(_delta) -> void:
 	if Globals.is_paused:

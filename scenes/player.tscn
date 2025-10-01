@@ -224,7 +224,7 @@ animated_sprite = NodePath("PlayerSprite")
 position = Vector2(-3, 0.999999)
 scale = Vector2(0.21875, 0.21875)
 sprite_frames = SubResource("SpriteFrames_smehm")
-animation = &"blue_idle"
+animation = &"red_idle"
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yqjtg")
