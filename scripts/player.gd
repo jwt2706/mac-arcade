@@ -92,7 +92,9 @@ func spawn_after_image() -> void:
 	
 	# Spawn new after-image
 	var after_image = after_image_scene.instantiate()
-	after_image.global_position = global_position
+	var spawn_pos = global_position + Vector2(64 * (-1 if animated_sprite.flip_h else 1), 0)
+	after_image.global_position = spawn_pos
+
 	after_image.scale = self.scale
 	
 	# Set initial animation

@@ -5,7 +5,3 @@ extends StaticBody2D
 
 func _ready() -> void:
 	animated_sprite.play("idle")
-	
-	#collision_shape.disabled = true
-	#await get_tree().create_timer(1.0).timeout
-	#collision_shape.disabled = false
