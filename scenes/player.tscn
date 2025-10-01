@@ -221,7 +221,8 @@ whip_hitbox = NodePath("WhipArea")
 animated_sprite = NodePath("PlayerSprite")
 
 [node name="PlayerSprite" type="AnimatedSprite2D" parent="."]
-scale = Vector2(0.2, 0.2)
+position = Vector2(-3, 0.999999)
+scale = Vector2(0.21875, 0.21875)
 sprite_frames = SubResource("SpriteFrames_smehm")
 animation = &"blue_idle"
 

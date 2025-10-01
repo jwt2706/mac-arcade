@@ -1,7 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://bmqk0tif5q735"]
+[gd_scene load_steps=5 format=3 uid="uid://bmqk0tif5q735"]
 
 [ext_resource type="Script" uid="uid://c7mnrj0xh40w" path="res://scripts/game_manager.gd" id="1_lbhrr"]
 [ext_resource type="PackedScene" uid="uid://c6wqjdfirsvpu" path="res://scenes/player.tscn" id="2_yqjtg"]
+[ext_resource type="Shader" uid="uid://c5vsn708ye14o" path="res://shaders/arcade.gdshader" id="3_lnu2h"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_lbhrr"]
+shader = ExtResource("3_lnu2h")
+shader_parameter/test_color = Vector4(1, 0, 0, 0.5)
+shader_parameter/test_size = Vector2(50, 50)
 
 [node name="Game" type="Node2D"]
 script = ExtResource("1_lbhrr")
@@ -63,6 +69,20 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 32
 text = "Main Menu"
+
+[node name="ColorRect" type="ColorRect" parent="."]
+material = SubResource("ShaderMaterial_lbhrr")
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -49.0
+offset_top = -55.0
+offset_right = 2013.0
+offset_bottom = 1150.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [connection signal="pressed" from="PauseContainer/PausesOptions/ResumeButton" to="." method="_on_resume_button_pressed"]
 [connection signal="pressed" from="PauseContainer/PausesOptions/RestartButton" to="." method="_on_restart_button_pressed"]
