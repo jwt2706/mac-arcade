@@ -21,7 +21,7 @@ var can_play: bool = false
 # LIFE CYCLE
 # -------------------------
 func _ready() -> void:
-	add_to_group("game_manager")
+	
 	Globals.mode_changed.connect(_on_mode_changed)
 	pause_container.visible = false
 

@@ -8,6 +8,6 @@ var mode : String:
 			mode = new_mode
 			mode_changed.emit(mode)
 
-var total_levels = 12
+var total_levels = 5
 var current_level = 1
 var highest_level = 1
