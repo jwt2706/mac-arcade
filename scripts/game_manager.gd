@@ -11,7 +11,6 @@ var yellow_layer
 var start_layer
 var end_layer
 var spike_layer
-
 var can_play: bool = false
 
 @onready var pause_container = $PauseContainer
@@ -21,7 +20,6 @@ var can_play: bool = false
 # LIFE CYCLE
 # -------------------------
 func _ready() -> void:
-	
 	Globals.mode_changed.connect(_on_mode_changed)
 	pause_container.visible = false
 
@@ -37,12 +35,17 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("select"):
 		toggle_pause()
 
+	if not pause_container.visible:
+		return
+
 # -------------------------
 # PAUSE
 # -------------------------
 func toggle_pause() -> void:
 	get_tree().paused = not get_tree().paused
+	Globals.is_paused = get_tree().paused
 	pause_container.visible = get_tree().paused
+	Globals.pause_selected_index = 0
 
 # -------------------------
 # LEVEL MANAGEMENT
@@ -199,8 +202,7 @@ func _on_resume_button_pressed() -> void:
 	toggle_pause()
 
 func _on_restart_button_pressed() -> void:
-	pause_container.visible = false
-	get_tree().paused = false
+	toggle_pause()
 	call_deferred("reload_level")
 
 func _on_selection_button_pressed() -> void:
