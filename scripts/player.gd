@@ -13,6 +13,9 @@ var after_image_scene: PackedScene = preload("res://scenes/after_image.tscn")
 var attacking: bool = false
 var can_move: bool = true
 
+func _ready() -> void:
+	whip_hitbox.area_entered.connect(_on_whip_hitbox_area_entered)
+
 func _physics_process(delta: float) -> void:
 	if not can_move:
 		return
@@ -84,9 +87,24 @@ func attack_whip() -> void:
 	whip_hitbox.monitoring = false
 	attacking = false
 
-	
-	# ENEMIES EXAMPLE CODE OR SMTH:
-	#func _on_WhipHitbox_body_entered(body: Node) -> void:
-	#if body.is_in_group("enemies"):
-	# body.take_damage(1)
-	# assuming your enemies have this method
+var spike_break_fx = preload("res://scenes/fx/break_spike_fx.tscn")
+
+func _on_whip_hitbox_area_entered(area: Area2D) -> void:
+	if area.is_in_group("spikes"):
+		# Remove the tile
+		if area.has_meta("cell"):
+			var cell: Vector2i = area.get_meta("cell")
+			var gm = get_tree().get_first_node_in_group("game_manager")
+			if gm and gm.spike_layer:
+				gm.spike_layer.set_cell(cell, -1)
+
+		# ✨ Spawn particle effect
+		var fx: GPUParticles2D = spike_break_fx.instantiate()
+		fx.global_position = area.global_position
+		area.queue_free()
+		get_tree().current_scene.add_child(fx)
+		fx.emitting = true
+
+		# Remove it after its lifetime
+		await get_tree().create_timer(fx.lifetime + 0.1).timeout
+		fx.queue_free()

@@ -21,6 +21,7 @@ var can_play: bool = false
 # LIFE CYCLE
 # -------------------------
 func _ready() -> void:
+	add_to_group("game_manager")
 	Globals.mode_changed.connect(_on_mode_changed)
 	pause_container.visible = false
 
@@ -146,8 +147,11 @@ func _setup_spike_triggers() -> void:
 		area.global_position = (pos * SIZE_OFFSET) - Vector2(32, 32)
 		area.name = "SpikeTrigger"
 
-		level_container.add_child(area)  # Add first
-		area.body_entered.connect(_on_spike_trigger_entered)  # Connect after
+		area.add_to_group("spikes")
+		area.set_meta("cell", cell)
+
+		level_container.add_child(area)
+		area.body_entered.connect(_on_spike_trigger_entered)
 
 # -------------------------
 # MODE SWITCHING
