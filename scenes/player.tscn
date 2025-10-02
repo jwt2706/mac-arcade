@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://c6wqjdfirsvpu"]
+[gd_scene load_steps=41 format=3 uid="uid://c6wqjdfirsvpu"]
 
 [ext_resource type="Script" uid="uid://c8jfkgaqmrovj" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dqnquu3rtph66" path="res://assets/mac-blue-running.png" id="2_dqkch"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://cywxh3sulpy1o" path="res://assets/mac-red-idle.png" id="4_smehm"]
 [ext_resource type="Texture2D" uid="uid://d0b20yb20jf8y" path="res://assets/mac-yellow-idle.png" id="4_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://ccetl3li4ahnp" path="res://assets/mac-red-whip.png" id="6_smehm"]
+[ext_resource type="AudioStream" uid="uid://b7yklopsrj8v6" path="res://audio/whip.mp3" id="9_ur7pv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
 atlas = ExtResource("2_fjrip")
@@ -269,3 +270,6 @@ monitoring = false
 [node name="WhipCollision" type="CollisionShape2D" parent="WhipArea"]
 position = Vector2(51, 7)
 shape = SubResource("RectangleShape2D_lnu2h")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("9_ur7pv")

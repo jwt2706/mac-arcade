@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://bqudije7jqnps"]
+[gd_scene load_steps=4 format=3 uid="uid://bqudije7jqnps"]
 
 [ext_resource type="Script" uid="uid://bj8b85anw3tnf" path="res://scripts/level_die.gd" id="1_r1xf3"]
+[ext_resource type="AudioStream" uid="uid://d4na1gtglpxt7" path="res://audio/interface-soft-click-131438.mp3" id="2_sv6et"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yqeox"]
 particle_flag_disable_z = true
@@ -76,6 +77,10 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 32
 text = "Main Menu"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_sv6et")
+autoplay = true
 
 [connection signal="pressed" from="MenuOptions/ReplayButton" to="." method="_on_replay_button_pressed"]
 [connection signal="pressed" from="MenuOptions/MenuButton" to="." method="_on_menu_button_pressed"]

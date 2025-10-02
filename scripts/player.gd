@@ -5,6 +5,8 @@ extends CharacterBody2D
 var after_image_scene: PackedScene = preload("res://scenes/after_image.tscn")
 var spike_break_fx = preload("res://scenes/fx/break_spike_fx.tscn")
 
+@onready var whip_sfx = $AudioStreamPlayer
+
 @export var attack_length: float = 0.2
 @export var max_speed: float = 400.0
 @export var acceleration: float = 1000.0
@@ -125,6 +127,7 @@ func fade_after_image(node: Node, duration: float) -> void:
 # WHIP ATTACK
 # -------------------------
 func attack_whip() -> void:
+	whip_sfx.play()
 	if attacking:
 		return
 	

@@ -1,7 +1,8 @@
-[gd_scene load_steps=9 format=3 uid="uid://dokg1efora1fd"]
+[gd_scene load_steps=10 format=3 uid="uid://dokg1efora1fd"]
 
 [ext_resource type="Script" path="res://scripts/after_image.gd" id="1_dclv7"]
 [ext_resource type="Texture2D" uid="uid://b56u7m3d82l32" path="res://assets/mac-yellow-ghost.png" id="3_3gqxm"]
+[ext_resource type="AudioStream" uid="uid://qwjxqjpex1oy" path="res://audio/spawn.mp3" id="3_xx4oi"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xx4oi"]
 atlas = ExtResource("3_3gqxm")
@@ -53,3 +54,7 @@ animation = &"idle"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_isvdl")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_xx4oi")
+autoplay = true
