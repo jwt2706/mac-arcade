@@ -119,7 +119,7 @@ text = "ToggleFullscreen
 layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 32
-text = "Quit"
+text = "Return"
 
 [connection signal="pressed" from="MenuOptions/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MenuOptions/SelectionButton" to="." method="_on_selection_button_pressed"]

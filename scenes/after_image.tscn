@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://dokg1efora1fd"]
 
-[ext_resource type="Script" uid="uid://bh52yxcq4lp7o" path="res://scripts/after_image.gd" id="1_dclv7"]
+[ext_resource type="Script" path="res://scripts/after_image.gd" id="1_dclv7"]
 [ext_resource type="Texture2D" uid="uid://b56u7m3d82l32" path="res://assets/mac-yellow-ghost.png" id="3_3gqxm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xx4oi"]

@@ -10,7 +10,7 @@ initial_velocity_max = 50.0
 gravity = Vector3(0, 0, 0)
 turbulence_noise_strength = 0.0
 
-[node name="LevelEnd" type="Control"]
+[node name="LevelEnd2" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

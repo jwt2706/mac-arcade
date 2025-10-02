@@ -124,16 +124,41 @@ func fade_after_image(node: Node, duration: float) -> void:
 # -------------------------
 # WHIP ATTACK
 # -------------------------
+# -------------------------
+# WHIP ATTACK
+# -------------------------
 func attack_whip() -> void:
 	if attacking:
 		return
 	
 	attacking = true
+	can_move = false  # Optional: stops player from moving mid-whip
 	whip_hitbox.monitoring = true
-	
+
+	# Play whip animation
+	var whip_anim := "red_whip"
+	if animated_sprite.sprite_frames.has_animation(whip_anim):
+		animated_sprite.play(whip_anim)
+
+	# Wait for the attack to finish
 	await get_tree().create_timer(attack_length).timeout
+
 	whip_hitbox.monitoring = false
 	attacking = false
+	can_move = true  # Re-enable movement
+
+	# Return to idle or run depending on movement
+	var direction := Input.get_axis("left", "right")
+	var prefix := Globals.mode
+	if direction != 0:
+		var run_anim := prefix + "_run"
+		if animated_sprite.sprite_frames.has_animation(run_anim):
+			animated_sprite.play(run_anim)
+	else:
+		var idle_anim := prefix + "_idle"
+		if animated_sprite.sprite_frames.has_animation(idle_anim):
+			animated_sprite.play(idle_anim)
+
 
 func _on_whip_hitbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("spikes"):

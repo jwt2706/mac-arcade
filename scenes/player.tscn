@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://c6wqjdfirsvpu"]
+[gd_scene load_steps=40 format=3 uid="uid://c6wqjdfirsvpu"]
 
 [ext_resource type="Script" uid="uid://c8jfkgaqmrovj" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://dqnquu3rtph66" path="res://assets/mac-blue-running.png" id="2_dqkch"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://c7563etvii386" path="res://assets/mac-yellow-running.png" id="4_qlg0r"]
 [ext_resource type="Texture2D" uid="uid://cywxh3sulpy1o" path="res://assets/mac-red-idle.png" id="4_smehm"]
 [ext_resource type="Texture2D" uid="uid://d0b20yb20jf8y" path="res://assets/mac-yellow-idle.png" id="4_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://ccetl3li4ahnp" path="res://assets/mac-red-whip.png" id="6_smehm"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
 atlas = ExtResource("2_fjrip")
@@ -70,6 +71,22 @@ region = Rect2(640, 0, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
 atlas = ExtResource("3_qhqgy")
+region = Rect2(960, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pf23h"]
+atlas = ExtResource("6_smehm")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dt7fs"]
+atlas = ExtResource("6_smehm")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wqfne"]
+atlas = ExtResource("6_smehm")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wnwbv"]
+atlas = ExtResource("6_smehm")
 region = Rect2(960, 0, 320, 320)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qfm1y"]
@@ -176,6 +193,23 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_pf23h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dt7fs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wqfne")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wnwbv")
+}],
+"loop": true,
+"name": &"red_whip",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_qfm1y")
 }, {
 "duration": 1.0,
@@ -213,7 +247,7 @@ animations = [{
 size = Vector2(60, 59)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lnu2h"]
-size = Vector2(97, 30)
+size = Vector2(47, 30)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("whip_hitbox", "animated_sprite")]
 script = ExtResource("1_g2els")
@@ -224,7 +258,8 @@ animated_sprite = NodePath("PlayerSprite")
 position = Vector2(-3, 0.999999)
 scale = Vector2(0.21875, 0.21875)
 sprite_frames = SubResource("SpriteFrames_smehm")
-animation = &"red_idle"
+animation = &"red_whip"
+frame_progress = 0.397675
 
 [node name="PlayerCollision" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_yqjtg")
@@ -233,5 +268,5 @@ shape = SubResource("RectangleShape2D_yqjtg")
 monitoring = false
 
 [node name="WhipCollision" type="CollisionShape2D" parent="WhipArea"]
-position = Vector2(79.5, 0)
+position = Vector2(51, 7)
 shape = SubResource("RectangleShape2D_lnu2h")
