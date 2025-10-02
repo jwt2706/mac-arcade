@@ -6,6 +6,7 @@ var after_image_scene: PackedScene = preload("res://scenes/after_image.tscn")
 var spike_break_fx = preload("res://scenes/fx/break_spike_fx.tscn")
 
 @onready var whip_sfx = $AudioStreamPlayer
+@onready var gravity_sfx = $AudioGravity
 
 @export var attack_length: float = 0.2
 @export var max_speed: float = 400.0
@@ -76,6 +77,7 @@ func _physics_process(delta: float) -> void:
 # GRAVITY
 # -------------------------
 func flip_gravity() -> void:
+	gravity_sfx.play()
 	gravity = -gravity
 	animated_sprite.flip_v = gravity < 0
 
