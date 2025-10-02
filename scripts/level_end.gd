@@ -8,6 +8,8 @@ extends Control
 
 var selected_index: int = 0
 
+@onready var next_button = $MenuOptions/NextButton
+
 func _ready() -> void:
 	# Unlock next level if applicable
 	var highest = Globals.current_level + 1
@@ -17,6 +19,11 @@ func _ready() -> void:
 	# Focus first button initially
 	_select_button(selected_index)
 	set_process(true)
+	
+	if Globals.current_level == Globals.total_levels:
+		next_button.disabled = true
+	else:
+		next_button.disabled = false
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("up"):
