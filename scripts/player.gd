@@ -12,7 +12,7 @@ var spike_break_fx = preload("res://scenes/fx/break_spike_fx.tscn")
 @export var gravity: float = 800.0
 
 @export var max_after_images: int = 3
-@export var after_image_fade_time: float = 0.5  # seconds
+@export var after_image_fade_time: float = 0.5 # seconds
 
 var attacking: bool = false
 var can_move: bool = true

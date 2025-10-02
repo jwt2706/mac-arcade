@@ -10,10 +10,12 @@ config_version=5
 
 [application]
 
-config/name="mac-arcade"
+config/name="Mac3: Power Swap"
+config/description="Mac's very own arcade game!"
 run/main_scene="uid://b2jdrmdu1eosp"
 config/features=PackedStringArray("4.4", "Forward Plus")
-config/icon="res://icon.svg"
+boot_splash/bg_color=Color(0, 0, 0, 1)
+config/icon="uid://cntory4fm6bnx"
 
 [autoload]
 

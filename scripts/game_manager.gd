@@ -27,14 +27,13 @@ func _ready() -> void:
 	
 	# Show full map for 1 second, then switch to red layer
 	can_play = false
-	await get_tree().create_timer(1.0).timeout
+	await get_tree().create_timer(START_DELAY).timeout
 	Globals.mode = "red"
 	can_play = true
 
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("select"):
 		toggle_pause()
-
 	if not pause_container.visible:
 		return
 

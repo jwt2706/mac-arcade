@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b2jdrmdu1eosp"]
+[gd_scene load_steps=4 format=3 uid="uid://b2jdrmdu1eosp"]
 
 [ext_resource type="Script" uid="uid://bj77ps8vu6l5u" path="res://scripts/menu.gd" id="1_yqeox"]
+[ext_resource type="AudioStream" uid="uid://b8qqo4whmif8h" path="res://audio/menu.mp3" id="2_vjb58"]
 
 [sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_yqeox"]
 particle_flag_disable_z = true
@@ -120,6 +121,10 @@ layout_mode = 2
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 32
 text = "Return"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_vjb58")
+autoplay = true
 
 [connection signal="pressed" from="MenuOptions/StartButton" to="." method="_on_start_button_pressed"]
 [connection signal="pressed" from="MenuOptions/SelectionButton" to="." method="_on_selection_button_pressed"]

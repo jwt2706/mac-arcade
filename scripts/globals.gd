@@ -11,6 +11,6 @@ var mode : String:
 var is_paused = false
 var pause_selected_index = 0
 
-var total_levels = 5
+var total_levels = 6
 var current_level = 1
 var highest_level = 1
