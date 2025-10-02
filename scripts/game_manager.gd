@@ -190,7 +190,7 @@ func _on_spike_trigger_entered(body: Node) -> void:
 	if not can_play:
 		return
 	if body.name == "Player":
-		call_deferred("reload_level")
+		get_tree().change_scene_to_file("res://scenes/level_die.tscn")
 
 func _go_to_level_end() -> void:
 	get_tree().change_scene_to_file("res://scenes/level_end.tscn")

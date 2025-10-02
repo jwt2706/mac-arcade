@@ -124,9 +124,6 @@ func fade_after_image(node: Node, duration: float) -> void:
 # -------------------------
 # WHIP ATTACK
 # -------------------------
-# -------------------------
-# WHIP ATTACK
-# -------------------------
 func attack_whip() -> void:
 	if attacking:
 		return
@@ -158,7 +155,6 @@ func attack_whip() -> void:
 		var idle_anim := prefix + "_idle"
 		if animated_sprite.sprite_frames.has_animation(idle_anim):
 			animated_sprite.play(idle_anim)
-
 
 func _on_whip_hitbox_area_entered(area: Area2D) -> void:
 	if area.is_in_group("spikes"):
